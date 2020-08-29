@@ -503,7 +503,6 @@ class Namespace(UIComponent):
         """
         Show a popup menu if button3 was pressed on the TreeView.
         """
-        # handle mouse button 3:"
         if event.type == Gdk.EventType.BUTTON_PRESS and event.button.button == 3:
             menu = Gtk.Menu.new_from_model(self.namespace_popup_model())
             menu.attach_to_widget(view, None)
@@ -526,10 +525,7 @@ class Namespace(UIComponent):
         action_group.lookup_action("open").set_enabled(isinstance(element, Diagram))
         action_group.lookup_action("create-diagram").set_enabled(
             isinstance(element, UML.Package)
-            or (
-                isinstance(element, UML.Namespace)
-                and isinstance(element.namespace, UML.Package)
-            )
+            or (element and isinstance(element.owner, UML.Package))
         )
         action_group.lookup_action("create-package").set_enabled(
             isinstance(element, UML.Package)
