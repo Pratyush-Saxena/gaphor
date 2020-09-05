@@ -10,20 +10,9 @@ attribute/operation.
 __all__ = ["parse_property", "parse_operation"]
 
 import re
-from functools import singledispatch
 
+from gaphor.core.format import parse
 from gaphor.UML import uml
-
-
-@singledispatch
-def parse(el, text):
-    """
-    Parser for an UML element.
-    """
-    raise NotImplementedError(
-        "Parsing routine for type %s not implemented yet" % type(el)
-    )
-
 
 # Visibility (optional) ::= '+' | '-' | '#'
 vis_subpat = r"\s*(?P<vis>[-+#])?"
@@ -298,8 +287,7 @@ def parse_lifeline(el: uml.Lifeline, s: str) -> None:
 
 
 def render_lifeline(el: uml.Lifeline) -> str:
-    """
-    """
+    """"""
     return el.name or ""
 
 

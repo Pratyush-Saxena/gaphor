@@ -3,19 +3,10 @@ Formatting of UML elements like attributes, operations, stereotypes, etc.
 """
 
 import re
-from functools import singledispatch
+from typing import Tuple
 
+from gaphor.core.format import format
 from gaphor.UML import uml as UML
-
-
-@singledispatch
-def format(el):
-    """
-    Format an UML element.
-    """
-    raise NotImplementedError(
-        "Format routine for type %s not implemented yet" % type(el)
-    )
 
 
 @format.register(UML.Property)
@@ -97,7 +88,7 @@ def format_attribute(
     return "".join(s)
 
 
-def format_association_end(el):
+def format_association_end(el) -> Tuple[str, str]:
     """
     Format association end.
     """
@@ -212,6 +203,7 @@ def format_namedelement(el, **kwargs):
     return el.name or ""
 
 
+@format.register(UML.MultiplicityElement)
 def format_multiplicity(el, bare=False):
     m = ""
     if el.upperValue:

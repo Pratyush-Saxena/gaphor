@@ -2,7 +2,7 @@
 Support code for dealing with stereotypes in diagrams.
 """
 
-from gaphor import UML
+from gaphor.core.format import format
 from gaphor.core.styling import TextAlign, VerticalAlign
 from gaphor.diagram.shapes import Box, Text, draw_top_separator
 
@@ -21,7 +21,7 @@ def stereotype_compartments(subject):
 
 def _create_stereotype_compartment(appliedStereotype):
     def lazy_format(slot):
-        return lambda: UML.format(slot)
+        return lambda: format(slot)
 
     slots = [slot for slot in appliedStereotype.slot if slot.value]
 

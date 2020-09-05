@@ -19,6 +19,7 @@ from gaphas.geometry import Rectangle, distance_rectangle_point
 from gaphas.state import reversible_property
 
 from gaphor import UML
+from gaphor.core.format import format
 from gaphor.core.modeling import Presentation
 from gaphor.core.styling import Style
 from gaphor.diagram.presentation import LinePresentation, Named
@@ -408,7 +409,7 @@ class AssociationEnd(Presentation):
         """
         if self.subject:
             try:
-                n, m = UML.format(self.subject)
+                n, m = format(self.subject)
             except ValueError:
                 # need more than 0 values to unpack: property was rendered as
                 # attribute while in a UNDO action for example.
@@ -517,8 +518,7 @@ class AssociationEnd(Presentation):
         )
 
     def point(self, pos):
-        """Given a point (x, y) return the distance to the canvas item.
-        """
+        """Given a point (x, y) return the distance to the canvas item."""
         drp = distance_rectangle_point
         d1 = drp(self._name_bounds, pos)
         d2 = drp(self._mult_bounds, pos)
@@ -526,8 +526,7 @@ class AssociationEnd(Presentation):
         return min(d1, d2, d3)
 
     def draw(self, context):
-        """Draw name and multiplicity of the line end.
-        """
+        """Draw name and multiplicity of the line end."""
         if not self.subject:
             return
 
