@@ -8,7 +8,7 @@ from gaphor.core.eventmanager import EventManager
 from gaphor.core.modeling import ElementFactory
 from gaphor.UML import model
 from gaphor.UML import uml as UML
-from gaphor.UML.umlfmt import format
+from gaphor.UML.umlfmt import format, format_association_end
 from gaphor.UML.umllex import parse
 
 
@@ -43,8 +43,7 @@ def add_tag_is_foo_metadata_field(e, factory):
     ],
 )
 def test_attribute(factory, text, formatted_text):
-    """Test simple attribute formatting
-    """
+    """Test simple attribute formatting"""
     a = factory.create(UML.Property)
     parse(a, text)
 
@@ -70,18 +69,16 @@ def test_attribute_with_applied_stereotype(factory):
     ],
 )
 def test_association_end(factory, text, name_part, mult_part):
-    """Test simple attribute formatting
-    """
+    """Test simple attribute formatting"""
     a = factory.create(UML.Property)
     a.association = factory.create(UML.Association)
     parse(a, text)
 
-    assert (name_part, mult_part) == format(a)
+    assert (name_part, mult_part) == format_association_end(a)
 
 
 def test_attribute_with_type(factory):
-    """Test simple attribute formatting
-    """
+    """Test simple attribute formatting"""
     a = factory.create(UML.Property)
     a.type = factory.create(UML.Class)
     a.name = "attr"
@@ -96,7 +93,7 @@ def test_association_end_with_applied_stereotype(factory):
     parse(a, "myattr[1]")
     add_tag_is_foo_metadata_field(a, factory)
 
-    assert ("+ myattr", '1 { tag = "foo" }') == format(a)
+    assert ("+ myattr", '1 { tag = "foo" }') == format_association_end(a)
 
 
 @pytest.mark.parametrize(
@@ -117,8 +114,7 @@ def test_association_end_with_applied_stereotype(factory):
     ],
 )
 def test_operation(factory, text, formatted_text):
-    """Test simple operation formatting
-    """
+    """Test simple operation formatting"""
     o = factory.create(UML.Operation)
     parse(o, text)
 
